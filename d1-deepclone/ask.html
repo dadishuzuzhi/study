@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>deepclone</title>
+</head>
+<body>
+  
+</body>
+<script>
+let a = {
+  a:1,
+  b:{
+    c:1
+  },
+  d:[1,2,3,4]
+};
+function main(data) {
+  let temp;
+  if(typeof data === 'number' || typeof data === 'boolean'|| typeof data === 'string') return data;
+  if(data instanceof Array){
+    temp = [];
+    for (let index = 0; index < data.length; index++) {
+      temp.push(main(data[index]));
+    }
+  } else if(typeof data === 'object'){
+    temp = {};
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        temp[key] = main(data[key]);
+      }
+    }
+  }
+
+  return temp;
+}
+console.log(main(a));
+console.log(main(a).b === a.b);
+</script>
+</html>
