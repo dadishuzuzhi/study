@@ -15,25 +15,25 @@ let a = {
   b:{
     c:1
   },
-  d:[1,2,3,4]
+  d:[1,2,{we:[1,2,3]},4]
 };
 function main(data) {
+  if(data === null) return data;
   let temp;
-  if(typeof data === 'number' || typeof data === 'boolean'|| typeof data === 'string') return data;
-  if(data instanceof Array){
-    temp = [];
-    for (let index = 0; index < data.length; index++) {
-      temp.push(main(data[index]));
-    }
-  } else if(typeof data === 'object'){
-    temp = {};
+  if(typeof data === 'object'){
+    temp = Array.isArray(data) ? [] : {};
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        temp[key] = main(data[key]);
+        if(typeof data[key] === 'object'){
+          temp[key] = main(data[key]);
+        }else{
+          temp[key] = data[key];
+        }
       }
     }
+  }else{
+    return data;
   }
-
   return temp;
 }
 console.log(main(a));
