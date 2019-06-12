@@ -10,6 +10,35 @@
   
 </body>
 <script>
+// Array.prototype.selfFlat = function main(level) {
+//   let res = [], value;
+//   if(typeof level === 'number'){
+//     if(level===0) return this;
+//     level--
+//   }else{
+//     if(typeof level === 'string' && level === 'infinite'){
+//     }else{
+//       level = 0;
+//     }
+//   }
+//   if(this instanceof Array){
+//     for (let i = 0; i < this.length; i++) {
+//       value = this[i];
+//       if(value instanceof Array){
+//         let t = value.selfFlat(level);
+//         for (let i = 0; i < t.length; i++) {
+//           value = t[i];
+//           res.push(value);
+//         }
+//       }else{
+//         res.push(value);
+//       }
+//     }
+//   }else{
+//     return this;
+//   }
+//   return res
+// }
 Array.prototype.selfFlat = function main(level) {
   let res = [], value;
   if(typeof level === 'number'){
@@ -25,11 +54,7 @@ Array.prototype.selfFlat = function main(level) {
     for (let i = 0; i < this.length; i++) {
       value = this[i];
       if(value instanceof Array){
-        let t = value.selfFlat(level);
-        for (let i = 0; i < t.length; i++) {
-          value = t[i];
-          res.push(value);
-        }
+        res = res.concat(value.selfFlat(level));
       }else{
         res.push(value);
       }
