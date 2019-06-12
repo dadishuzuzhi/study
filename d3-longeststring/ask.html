@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+/**
+ * @Description: 查找不连续的最长子串
+ * @param {type} 
+ * @return: 
+ */
+const str = "accdasjdasssvbnnasdasyb";
+function main(val) {
+  let arr = val.split("");
+  let from = 0;
+  let temArr = [];
+  arr.reduce((prev, cur, index, tem)=>{
+    if(cur === prev){
+      // 截取当前的子串
+      temArr.push({
+        length:index - from,
+        str:tem.slice(from,index).join("")
+      })
+      from = index;
+    }else if(index === tem.length - 1){
+      // 当循环到最后一位的时候直接终止
+      temArr.push({
+        length:index - from + 1,
+        str:tem.slice(from,index + 1).join("")
+      })
+    }
+    return cur;
+  })
+  // 展示所有的项
+  // console.log(temArr);
+  // 查找数组中length最大的项;
+  let max = temArr.reduce((p,c)=>Math.max(p,c.length),0);
+
+  // 查找所有最大项的子串
+  return temArr.filter((val)=>val.length === max);
+}
+console.log(main(str).reduce((p,c)=>p.str+','+c.str))
+</script>
+</html>
