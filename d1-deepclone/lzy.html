@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>deepclone</title>
+</head>
+<body>
+  
+</body>
+<script>
+   let a = [
+       { a:1,
+        b:{
+            c:1
+        },
+        d:[1,2,{we:{a:1,b:2,c:3}},4 ]
+        }
+    ]
+    function clone(data){
+        if(!data || !typeof data === "Array" || !typeof data === 'object' || !typeof data ==='function' ){
+            return data || {}
+        }else{
+            var result =  Array.isArray(data) ? []:{};
+            for(let key in data){
+                if(data.hasOwnProperty(key)){
+                    if(typeof data[key] === "object"){
+                        result[key] = clone(data[key])
+                    }else{
+                        result[key] =data[key]
+                    }
+                  
+                }
+            }
+        }
+        return result
+    }
+    console.log(clone(a));
+    console.log(clone(a).b === a.b);
+</script>
+</html>
