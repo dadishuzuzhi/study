@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+// https://leetcode-cn.com/problems/lru-cache/
+// 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
+
+// 获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。
+// 写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。
+
+// LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );
+
+// cache.put(1, 1);
+// cache.put(2, 2);
+// cache.get(1);       // 返回  1
+// cache.put(3, 3);    // 该操作会使得密钥 2 作废
+// cache.get(2);       // 返回 -1 (未找到)
+// cache.put(4, 4);    // 该操作会使得密钥 1 作废
+// cache.get(1);       // 返回 -1 (未找到)
+// cache.get(3);       // 返回  3
+// cache.get(4);       // 返回  4
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+    this.cached = [];
+    this.capacity = capacity;
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+  let res = null, index = 0;
+  this.cached.forEach((item, idx)=>{
+    if(item.key === key){
+      res = item;
+      index = idx;
+    }
+  })
+  if(res){
+    this.cached.splice(index, index+1);
+    this.cached.push(res);
+    return res.value;
+  }else{
+    return -1;
+  }
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+  let newItem = {key:key, value:value};
+  if(this.cached.length === this.capacity){
+    this.cached.shift();
+  }
+  this.cached.push(newItem);
+};
+
+let cache = new LRUCache( 2 /* 缓存容量 */ );
+
+cache.put(1, 1);
+cache.put(2, 2);
+console.log(cache.cached);
+console.log(cache.get(1));       // 返回  1
+cache.put(3, 3);    // 该操作会使得密钥 2 作废
+console.log(cache.get(2));       // 返回 -1 (未找到)
+cache.put(4, 4);    // 该操作会使得密钥 1 作废
+console.log(cache.get(1));       // 返回 -1 (未找到)
+console.log(cache.get(3));       // 返回  3
+console.log(cache.get(4));       // 返回  4
+
+</script>
+</html>
