@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+const str = "babadasdfghjkllkjhgfdsa";
+function main(str) {
+  let arr = [];
+  let length = str.length;
+  // 通过步长的方式遍历所有字符串
+  for (let step = 2; step <= length; step++) {
+    let res = search(str, step);
+    if(res.length){
+      Array.prototype.push.apply(arr, search(str, step));
+    }
+  }
+  let len = arr.reduce((prev, cur)=>{
+    if(cur.length > prev){
+      return cur.length;
+    }
+    return prev;
+  }, 0);
+  return arr.filter((item)=>item.length === len);
+}
+/**
+ * @Description: 查询当前步长下的所有子串
+ * @param {type} 
+ * @return: 
+ */
+function search(str, step) {
+  let arr = [];
+  let length = str.length;
+  for (let index = 0; index < length; index++) {
+    let splitStr = str.substr(index, step);
+    // 当获取的字符串和步长不等的时候没有必要判断
+    if(splitStr.length === step && isSlainDrome(splitStr)){
+      arr.push({
+        str: splitStr,
+        length: splitStr.length
+      })
+    }
+  }
+  return arr;
+/**
+ * @Description: 判断是不是回文串
+ * @param {type} 
+ * @return: 
+ */
+}
+function isSlainDrome(str) {
+  let reverseStr = str.split("").reverse().join("");
+  return str === reverseStr;
+}
+// console.log(isSlainDrome("aba"));
+console.log(main(str));
+</script>
+</html>
