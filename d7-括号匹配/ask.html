@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+const leftArr = ["<","{","(","["];
+const rightArr = [">","}",")","]"];
+const map = {
+  "<":">","{":"}","(":")","[":"]"
+}
+function main(str) {
+  let arr = [];
+  for (let index = 0; index < str.length; index++) {
+    if(leftArr.indexOf(str[index])!=-1){
+      arr.push(str[index]);
+    }else if(rightArr.indexOf(str[index])!=-1){
+      console.log(arr);
+      let left = arr.pop();
+      if(map[left] !== str[index]){
+        throw Error(`MATCH ERROR [括号未匹配] 没有找到与${left}对应的括号`)
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+// ===================================
+const str = "{<(12345[rtyui])>}"
+const str1 = "{<(12345[rtyui)>}"
+console.log(str,main(str));
+console.log(str1,main(str1));
+</script>
+</html>
