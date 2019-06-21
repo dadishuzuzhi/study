@@ -10,6 +10,45 @@
   
 </body>
 <script>
-  
+  function main(level) {
+    if(level === 1){
+      return 1;
+    }else if(level === 2){
+      return 2;
+    }else if(level === 3){
+      return 4;
+    }
+    let dep = [];
+    dep[1] = 1;
+    dep[2] = 2;
+    dep[3] = 4;
+      // 因为是一次只能跨 1,2,3阶
+    for (let index = 4; index <= level; index++) {
+      dep[index] = dep[index-1] + dep[index-2]+ dep[index-3];
+    }
+    return dep[level];
+  }
+  console.time();
+  console.log(main(40))
+  console.timeEnd()
+
+
+  function main1(i, n, temp) {
+    if (i > n) {
+              return 0;
+          }
+          if (i == n) {
+              return 1;
+          }
+          if (temp[i] > 0) {
+            return temp[i];
+        }
+    temp[i] = main1(i + 1, n, temp) + main1(i + 2, n, temp) +  main1(i + 3, n, temp);
+    return temp;
+  }
+  console.time();
+  let temp = [];
+  console.log(main1(0, 5, temp))
+  console.timeEnd()
 </script>
 </html>
