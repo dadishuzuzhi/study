@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+var convert = function(s, numRows) {
+  // 首先想到生成的Z形肯定是需要数组是存储的
+  // 确认一下数组的大小 行=numRows 列=s/numRows+s%numRows;
+  
+  const length = s.length;
+  if(s.length === 1 || numRows ===1) return s;
+  let arr = [];
+  const scol = caculatePosition(s, numRows).col;
+
+  // console.log(arr);
+  for (let index = 0; index < length; index++) {
+    let {row, col} = caculatePosition(s.substr(0, index + 1), numRows);
+    arr[row*(scol+1)+col] = s.charAt(index);
+  }
+  console.log(arr);
+  return arr.join("");
+};
+function caculatePosition(s, numRows) {
+  const length = s.length;
+  // 一个循环的长度
+  const circle = numRows + (numRows - 2);
+  const yu = length % circle;
+  const chu = parseInt(length / circle);
+  return {
+    // 如果没有余数,则该位置的数为循环节的尾部, 
+    row: yu === 0 ? 1 : ((parseInt(yu / numRows) === 1) ? (numRows - (yu % numRows) - 1) : yu - 1),
+    // 多个循环节的长度 + 多出来的字符造成的长度(如果多出来的字符没有行数则===1,反之 === 1 + 多出来的字符对行数取于)
+    col: chu * (1 + numRows - 2) + (yu ? ((parseInt(yu / numRows) === 1) ? (1 + yu % numRows) : 1) : 0) - 1
+  }
+}
+// 输入: s = "LEETCODEISHIRING", numRows = 3
+// 输出: "LCIRETOESIIGEDHN"
+// console.log(convert('LEETCODEISHIRING', 3));
+// 输入: s = "LEETCODEISHIRING", numRows = 4
+// 输出: "LDREOEIIECIHNTSG"
+// console.log(convert('LEETCODEISHIRING', 4));
+// console.log(convert('A', 1));
+// console.log(convert('AB', 1));
+// console.log(convert("fxvegafbleamibtikekvkguuelwbwwpdwkhemphyvimflhnxlzsxforkaqlymcbknlrbaybvinavxpsiolguzzgzptzevbqkmhmogpjqflmcaekqpsmrsssjlsnjvetjnhxvxgmetygveslwlynfqhoezenwkifxqctnkhtdhzalrmhekwlcecifgxcqghpwmilwrecyfckyotdasqfysnfylhqtripfqcbkifiniulyqqziheiztnagxszqaovtsydaennoibmyrniatqcndetayvqzjnuemzesmugwxuuqierbuvqyzmaxhtysguwstdmizsgwnboxhhyccrcbd", 240));
+console.log(convert("PAYPALISHIRING", 3));
+</script>
+</html>

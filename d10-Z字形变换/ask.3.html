@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+var convert = function(s, numRows) {
+  let str = ''
+  let num = numRows * 2 - 2
+  if(num < 2){ return s}
+  for (let j = 0; j < numRows; j++) {
+    for (let i = j; i < s.length; ) {
+      if(i % num == 0 || i % (numRows-1) == 0){
+        str += s[i]
+      }else{
+        str += s[i]
+        let num1 = parseInt(i/num + 1) * num -(i%num) 
+        str += s[num1] ? s[num1] : ''
+      }
+      i += num
+    }
+  }
+  return str
+};
+
+// 输入: s = "LEETCODEISHIRING", numRows = 3
+// 输出: "LCIRETOESIIGEDHN"
+// console.log(convert('LEETCODEISHIRING', 3));
+// 输入: s = "LEETCODEISHIRING", numRows = 4
+// 输出: "LDREOEIIECIHNTSG"
+// console.log(convert('LEETCODEISHIRING', 4));
+// console.log(convert('A', 1));
+// console.log(convert('AB', 1));
+console.log(convert("fxvegafbleamibtikekvkguuelwbwwpdwkhemphyvimflhnxlzsxforkaqlymcbknlrbaybvinavxpsiolguzzgzptzevbqkmhmogpjqflmcaekqpsmrsssjlsnjvetjnhxvxgmetygveslwlynfqhoezenwkifxqctnkhtdhzalrmhekwlcecifgxcqghpwmilwrecyfckyotdasqfysnfylhqtripfqcbkifiniulyqqziheiztnagxszqaovtsydaennoibmyrniatqcndetayvqzjnuemzesmugwxuuqierbuvqyzmaxhtysguwstdmizsgwnboxhhyccrcbd", 240));
+</script>
+</html>
