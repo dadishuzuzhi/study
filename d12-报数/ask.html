@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+/**
+ * @param {number} n
+ * @return {string}
+ */
+var countAndSay = function(n) {
+    if(n===1){
+      return "1";
+    }else{
+      let temp = countAndSay(n-1);
+      let index = 0;
+      let res = "";
+      temp = temp.split("")
+      temp.push("")
+      temp.reduce((prev, cur, curi)=>{
+        if(prev !== cur){
+          res += (curi - index) + prev
+          index = curi;
+        }
+        return cur
+      })
+      return res;
+    }
+};
+console.log(countAndSay(5));
+</script>
+</html>
