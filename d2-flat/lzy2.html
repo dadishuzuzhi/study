@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>flat</title>
+</head>
+<body>
+  
+</body>
+<script>
+  var str = "accdasjdasssvbnnasdasyb"
+  var str = "accd"
+  function get(str){
+    var temp ='';
+    var len = str.length;
+    for(var i = 0;i < len; i++){
+        temp += str[i]
+        let indexNum=temp.indexOf(str[i + 1])
+        console.log(indexNum)
+        if(indexNum > -1 || !str[i+1]){
+            // if()
+            temp=temp.substring(indexNum+1,temp.length) 
+        }
+    }
+    return temp
+  }
+  console.log(get(str))
+
+
+</script>
+</html>
