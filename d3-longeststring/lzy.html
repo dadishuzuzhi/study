@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+// var str = "accdasjdasssvbnnasdasyb"
+//   var str = "accd"
+//   function get(str){
+//     var temp ='';
+//     var len = str.length;
+//     for(var i = 0;i < len; i++){
+//         temp += str[i]
+//         let indexNum=temp.indexOf(str[i + 1])
+//         debugger
+//         console.log(indexNum)
+//         if(indexNum > -1 || !str[i+1]){
+//             // if()
+//             temp=temp.substring(indexNum+1,temp.length) 
+//         }
+//     }
+//     return temp
+//   }
+//   console.log(get(str))
+const str = "accdasjdasssvbnnasdasyb";
+function main(val) {
+  let arr = val.split("");
+  let from = 0;
+  let temArr = [];
+  arr.reduce((prev, cur, index, tem)=>{
+    if(cur === prev){
+      // 截取当前的子串
+      temArr.push({
+        length:index - from,
+        str:tem.slice(from,index).join("")
+      })
+      from = index;
+    }else if(index === tem.length - 1){
+      // 当循环到最后一位的时候直接终止
+      temArr.push({
+        length:index - from + 1,
+        str:tem.slice(from,index + 1).join("")
+      })
+    }
+    return cur;
+  })
+  // 展示所有的项
+  // console.log(temArr);
+  // 查找数组中length最大的项;
+  let max = temArr.reduce((p,c)=>Math.max(p,c.length),0);
+
+  // 查找所有最大项的子串
+  return temArr.filter((val)=>val.length === max);
+}
+console.log(main(str).reduce((p,c)=>p.str+','+c.str))
+
+// reduce() 数组方法  
+//语法  arr.reduce(callback,[initialValue]) 不提供initialValue  默认 从1 开始循环  提供 从0 开始
+//reduce 为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组。
+//Example arr.reduce((prev,cur,index,arr)=>{   },0)  prev：初始值（或者上一次回调函数的返回值） cur:当前元素值 index:当前索引 arr:调用的数组  0 默认初始值（从0开始循环）
+</script>
+</html>
