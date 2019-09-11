@@ -1,0 +1,53 @@
+<!--
+ * @Description: This is a description
+ * @Author: Ask
+ * @LastEditors: Ask
+ * @Date: 2019-09-11 08:43:57
+ * @LastEditTime: 2019-09-11 21:10:10
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 将obj数据处理成res的数据结构
+    let obj = {
+      a: {
+        b: {
+          c: [1,2,3]
+        },
+        d: 3,
+        e: {
+          f: 5
+        }
+      },
+      g: 2
+    };
+    let res = {
+      'a.b.c': 2,
+      'a.d': 3,
+      'a.e.f': 5,
+      'g': 2
+    };
+    function main(obj) {
+      let temp = {};
+      for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+          let res = main(obj[key]);
+          for (let i in res) {
+            temp[key + '.' + i] = res[i];
+          }
+        } else {
+          temp[key] = obj[key];
+        }
+      }
+      return temp;
+    }
+    console.log(main(obj));
+  </script>
+</html>

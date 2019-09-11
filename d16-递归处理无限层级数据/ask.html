@@ -1,0 +1,54 @@
+<!--
+ * @Description: This is a description
+ * @Author: Ask
+ * @LastEditors: Ask
+ * @Date: 2019-09-11 22:00:12
+ * @LastEditTime: 2019-09-11 23:19:08
+ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 扁平数据  树形化
+    let data = [
+      {
+        id: 1,
+        name: '1',
+        pid: 0
+      },
+      {
+        id: 2,
+        name: '2',
+        pid: 1
+      },
+      {
+        id: 3,
+        name: '3',
+        pid: 2
+      },
+      {
+        id: 4,
+        name: '4',
+        pid: 2
+      }
+    ];
+    function main(data, pid) {
+      let temp = [];
+      for (let index = 0; index < data.length; index++) {
+        let element = data[index];
+        if (element.pid === pid) {
+          element.children = main(data, element.id);
+          temp.push(element);
+        }
+      }
+      return temp;
+    }
+    console.log(main(data, 0));
+  </script>
+</html>
